@@ -1,0 +1,306 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shimmer{0%,100%{opacity:.4}50%{opacity:.85}}
+@keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+@keyframes ripple{0%{box-shadow:0 0 0 0 rgba(13,148,136,.35)}70%{box-shadow:0 0 0 9px rgba(13,148,136,0)}100%{box-shadow:0 0 0 0 rgba(13,148,136,0)}}
+
+.ww-root{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:2rem 1rem 3rem;max-width:620px;margin:0 auto}
+
+.topbar{display:flex;align-items:center;gap:12px;margin-bottom:2rem;animation:fadeUp .4s ease both}
+.logo{width:42px;height:42px;border-radius:12px;background:#0d9488;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo svg{width:22px;height:22px}
+.wordmark{display:flex;flex-direction:column;line-height:1.15}
+.wname{font-size:18px;font-weight:700;color:var(--color-text-primary);letter-spacing:-.5px}
+.wname span{color:#0d9488}
+.wsub{font-size:11.5px;color:var(--color-text-secondary);letter-spacing:.1px}
+.pill{margin-left:auto;font-size:11px;font-weight:600;padding:4px 11px;border-radius:20px;background:rgba(13,148,136,.1);color:#0d9488;border:1px solid rgba(13,148,136,.22);letter-spacing:.2px}
+
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:16px;padding:2rem;animation:fadeUp .4s .08s ease both}
+
+.ch{margin-bottom:1.75rem;padding-bottom:1.5rem;border-bottom:0.5px solid var(--color-border-tertiary)}
+.ch h1{font-size:19px;font-weight:600;color:var(--color-text-primary);margin-bottom:5px;letter-spacing:-.3px}
+.ch p{font-size:13.5px;color:var(--color-text-secondary);line-height:1.55}
+
+.steps{display:flex;gap:6px;margin-bottom:1.5rem}
+.step{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-text-tertiary)}
+.step-dot{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--color-border-secondary);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;flex-shrink:0;color:var(--color-text-secondary)}
+.step-dot.done{background:#0d9488;border-color:#0d9488;color:#fff}
+.step-dot.active{border-color:#0d9488;color:#0d9488}
+.step-line{flex:1;height:1px;background:var(--color-border-tertiary)}
+
+.frow{margin-bottom:1.15rem}
+.frow label{display:block;font-size:12.5px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px;letter-spacing:.1px}
+.iwrap{position:relative}
+.iico{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--color-text-tertiary);pointer-events:none;display:flex;align-items:center}
+.iwrap input,.iwrap select{width:100%;padding:11px 12px 11px 38px;font-size:14px;font-family:inherit;border:1px solid var(--color-border-secondary);border-radius:9px;background:var(--color-background-secondary);color:var(--color-text-primary);outline:none;transition:border-color .18s,box-shadow .18s,background .18s;-webkit-appearance:none;appearance:none}
+.iwrap input:focus,.iwrap select:focus{border-color:#0d9488;background:var(--color-background-primary);box-shadow:0 0 0 3px rgba(13,148,136,.14)}
+.iwrap input::placeholder{color:var(--color-text-tertiary)}
+.sarrow{position:absolute;right:11px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--color-text-tertiary)}
+.shake-it{animation:shake .3s ease}
+
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+.tone-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tbtn{padding:10px 6px;border:1px solid var(--color-border-secondary);border-radius:9px;background:var(--color-background-secondary);color:var(--color-text-secondary);font-size:12.5px;font-weight:500;font-family:inherit;cursor:pointer;transition:all .16s;display:flex;flex-direction:column;align-items:center;gap:5px;line-height:1.2}
+.tbtn .ticon{width:28px;height:28px;border-radius:8px;background:var(--color-background-tertiary);display:flex;align-items:center;justify-content:center;transition:background .16s}
+.tbtn:hover{border-color:#0d9488;color:#0d9488}
+.tbtn:hover .ticon{background:rgba(13,148,136,.1)}
+.tbtn.on{border-color:#0d9488;background:rgba(13,148,136,.07);color:#0d9488;animation:ripple .5s ease}
+.tbtn.on .ticon{background:rgba(13,148,136,.15)}
+
+.plat-row{display:flex;gap:7px;flex-wrap:wrap}
+.pchip{font-size:12px;font-weight:500;font-family:inherit;padding:5px 13px;border:1px solid var(--color-border-secondary);border-radius:20px;background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;transition:all .15s;user-select:none;display:flex;align-items:center;gap:5px}
+.pchip:hover{border-color:#0d9488;color:#0d9488}
+.pchip.on{border-color:#0d9488;background:rgba(13,148,136,.08);color:#0d9488}
+.pchip .pdot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.7}
+
+.divider{height:1px;background:var(--color-border-tertiary);margin:1.5rem 0}
+
+.genbtn{width:100%;padding:14px 20px;background:#0d9488;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .18s,transform .12s,box-shadow .18s;display:flex;align-items:center;justify-content:center;gap:9px;letter-spacing:-.1px}
+.genbtn:hover{background:#0f766e;transform:translateY(-1px);box-shadow:0 6px 20px rgba(13,148,136,.35)}
+.genbtn:active{transform:translateY(0) scale(.98)}
+.genbtn:disabled{background:#6ee7e0;cursor:not-allowed;transform:none;box-shadow:none}
+.bspinner{width:17px;height:17px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;display:none;flex-shrink:0}
+.bicon{display:flex;align-items:center;flex-shrink:0}
+
+.out-wrap{margin-top:1.5rem;display:none;animation:slideIn .35s ease both}
+.out-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+.out-label{font-size:11.5px;font-weight:600;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.7px;display:flex;align-items:center;gap:6px}
+.out-label .green-dot{width:7px;height:7px;border-radius:50%;background:#10b981;flex-shrink:0}
+.cpy{font-size:12px;font-weight:500;font-family:inherit;padding:4px 11px;border:1px solid var(--color-border-secondary);border-radius:6px;background:var(--color-background-secondary);color:var(--color-text-secondary);cursor:pointer;transition:all .18s;display:flex;align-items:center;gap:5px}
+.cpy:hover{border-color:#0d9488;color:#0d9488}
+.cpy.ok{border-color:#10b981;color:#10b981;background:rgba(16,185,129,.07)}
+
+.skel{display:none;flex-direction:column;gap:10px;padding:1.1rem 1.25rem;background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:10px}
+.sl{height:12px;border-radius:6px;background:var(--color-border-tertiary);animation:shimmer 1.3s ease infinite}
+
+.outbox{background:var(--color-background-secondary);border:0.5px solid var(--color-border-tertiary);border-radius:10px;padding:1.1rem 1.25rem;font-size:14px;font-family:inherit;line-height:1.8;color:var(--color-text-primary);white-space:pre-wrap;word-break:break-word;min-height:80px;display:none}
+.ccount{margin-top:5px;font-size:11px;color:var(--color-text-tertiary);text-align:right}
+
+.tip{margin-top:1.25rem;background:rgba(13,148,136,.06);border:1px solid rgba(13,148,136,.16);border-radius:9px;padding:.8rem 1rem;font-size:13px;color:var(--color-text-secondary);line-height:1.6;animation:fadeUp .4s .18s ease both;display:flex;gap:8px;align-items:flex-start}
+.tip-icon{width:20px;height:20px;border-radius:6px;background:rgba(13,148,136,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.tip strong{color:#0d9488;font-weight:600}
+</style>
+
+<div class="ww-root">
+  <div class="topbar">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/>
+        <path d="m15 5 4 4"/>
+      </svg>
+    </div>
+    <div class="wordmark">
+      <span class="wname">Write<span>Wave</span></span>
+      <span class="wsub">AI-powered content studio</span>
+    </div>
+    <span class="pill"> AI</span>
+  </div>
+
+  <div class="card">
+    <div class="ch">
+      <h1>Create your post</h1>
+      <p>Tell us about your brand and topic & WriteWave does the rest.</p>
+    </div>
+
+    <div class="frow">
+      <label>Company name</label>
+      <div class="iwrap">
+        <span class="iico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></span>
+        <input id="company" type="text" placeholder="e.g. Acme Corp" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="frow">
+      <label>Post topic</label>
+      <div class="iwrap">
+        <span class="iico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></span>
+        <input id="topic" type="text" placeholder="e.g. new product launch, team milestone" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="frow" style="margin-bottom:0">
+        <label>Content length</label>
+        <div class="iwrap">
+          <span class="iico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="13" y1="18" x2="3" y2="18"/></svg></span>
+          <select id="length">
+            <option>Short (1-2 lines)</option>
+            <option selected>Medium (3-5 lines)</option>
+            <option>Long (6-8 lines)</option>
+          </select>
+          <span class="sarrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+      </div>
+      <div class="frow" style="margin-bottom:0">
+        <label>Language</label>
+        <div class="iwrap">
+          <span class="iico"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+          <select id="lang">
+            <option>English</option>
+            <option>Hindi</option>
+            <option>Spanish</option>
+            <option>French</option>
+            <option>German</option>
+            <option>Arabic</option>
+          </select>
+          <span class="sarrow"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="frow" style="margin-top:1.15rem">
+      <label>Tone</label>
+      <div class="tone-grid" id="toneGrid">
+        <button class="tbtn on" data-tone="Professional" onclick="pickTone(this)">
+          <div class="ticon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+          Professional
+        </button>
+        <button class="tbtn" data-tone="Casual" onclick="pickTone(this)">
+          <div class="ticon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          Casual
+        </button>
+        <button class="tbtn" data-tone="Witty" onclick="pickTone(this)">
+          <div class="ticon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          Witty
+        </button>
+        <button class="tbtn" data-tone="Inspirational" onclick="pickTone(this)">
+          <div class="ticon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
+          Inspired
+        </button>
+      </div>
+    </div>
+
+    <div class="frow">
+      <label>Platform</label>
+      <div class="plat-row" id="platforms">
+        <span class="pchip on" onclick="toggleP(this)"><span class="pdot"></span>LinkedIn</span>
+        <span class="pchip" onclick="toggleP(this)"><span class="pdot"></span>Twitter / X</span>
+        <span class="pchip" onclick="toggleP(this)"><span class="pdot"></span>Instagram</span>
+        <span class="pchip" onclick="toggleP(this)"><span class="pdot"></span>Facebook</span>
+        <span class="pchip" onclick="toggleP(this)"><span class="pdot"></span>Threads</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <button class="genbtn" id="genBtn" onclick="generate()">
+      <span class="bicon" id="bico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+      <div class="bspinner" id="bspin"></div>
+      <span id="blabel">Generate with WriteWave</span>
+    </button>
+
+    <div class="out-wrap" id="outWrap">
+      <div class="out-head">
+        <span class="out-label"><span class="green-dot"></span>Your post is ready</span>
+        <button class="cpy" id="cpyBtn" onclick="doCopy()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <div class="skel" id="skel">
+        <div class="sl" style="width:82%"></div>
+        <div class="sl" style="width:67%"></div>
+        <div class="sl" style="width:91%"></div>
+        <div class="sl" style="width:55%"></div>
+        <div class="sl" style="width:75%"></div>
+      </div>
+      <pre class="outbox" id="outbox"></pre>
+      <div class="ccount" id="ccount"></div>
+    </div>
+  </div>
+
+  <div class="tip">
+    <div class="tip-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+    <span><strong>Pro tip:</strong> Be specific - "Q3 product launch for enterprise SaaS clients" beats "new product" every time.</span>
+  </div>
+</div>
+
+<script>
+let tone='Professional', platforms=new Set(['LinkedIn']);
+
+function pickTone(b){
+  document.querySelectorAll('.tbtn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); tone=b.dataset.tone;
+}
+function toggleP(c){
+  c.classList.toggle('on');
+  const n=c.textContent.trim();
+  c.classList.contains('on')?platforms.add(n):platforms.delete(n);
+}
+function doCopy(){
+  const t=document.getElementById('outbox').innerText;
+  navigator.clipboard.writeText(t).then(()=>{
+    const b=document.getElementById('cpyBtn');
+    b.innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg> Copied!`;
+    b.classList.add('ok');
+    setTimeout(()=>{
+      b.innerHTML=`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
+      b.classList.remove('ok');
+    },2200);
+  });
+}
+function shakeEl(id){
+  const el=document.getElementById(id);
+  el.classList.remove('shake-it');
+  void el.offsetWidth;
+  el.classList.add('shake-it');
+  el.addEventListener('animationend',()=>el.classList.remove('shake-it'),{once:true});
+  el.style.borderColor='#ef4444';
+  el.style.boxShadow='0 0 0 3px rgba(239,68,68,.13)';
+  el.addEventListener('focus',()=>{el.style.borderColor='';el.style.boxShadow='';},{once:true});
+}
+async function generate(){
+  const company=document.getElementById('company').value.trim();
+  const topic=document.getElementById('topic').value.trim();
+  const length=document.getElementById('length').value;
+  const lang=document.getElementById('lang').value;
+  if(!company){shakeEl('company');document.getElementById('company').focus();return;}
+  if(!topic){shakeEl('topic');document.getElementById('topic').focus();return;}
+
+  const btn=document.getElementById('genBtn'),
+        skel=document.getElementById('skel'),
+        outbox=document.getElementById('outbox'),
+        outWrap=document.getElementById('outWrap'),
+        ccount=document.getElementById('ccount');
+
+  btn.disabled=true;
+  document.getElementById('bico').style.display='none';
+  document.getElementById('bspin').style.display='block';
+  document.getElementById('blabel').textContent='Writing your post.....';
+
+  outWrap.style.display='block';
+  skel.style.display='flex';
+  outbox.style.display='none';
+  ccount.textContent='';
+
+  try{
+    const res=await fetch('generate.php',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({company,topic,tone,platforms:Array.from(platforms).join(', ')||'general',length,lang})
+    });
+    const data=await res.json();
+    skel.style.display='none';
+    outbox.style.display='block';
+    outbox.innerText=data.text;
+    ccount.textContent=data.text.length+' characters';
+  }catch(e){
+    skel.style.display='none';
+    outbox.style.display='block';
+    outbox.innerText='Something went wrong. Please try again.';
+  }
+
+  btn.disabled=false;
+  document.getElementById('bico').style.display='flex';
+  document.getElementById('bspin').style.display='none';
+  document.getElementById('blabel').textContent='Regenerate';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&(e.target.id==='company'||e.target.id==='topic'))generate();
+});
+</script>
