@@ -31,6 +31,7 @@ Create a file named env.php in the root directory:
 ```bash
 <?php
 $apiKey = "YOUR_OPENROUTER_API_KEY";
+?>
 ```
 3. Run locally
 
