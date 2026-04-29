@@ -13,7 +13,7 @@ $prompt = "Write a".$tone." LinkedIn post for".$company." about ".$topic.". Keep
 
 
 
-// ✅ CREATE CURL HANDLE FIRST
+//  CREATE CURL HANDLE FIRST
 $ch = curl_init("https://openrouter.ai/api/v1/chat/completions");
 
 // Payload
