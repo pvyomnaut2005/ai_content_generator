@@ -24,3 +24,15 @@ This project was built to understand:
 1. Clone the repo:
 ```bash
 git clone https://github.com/pvyomnaut2005/ai-content-generator.git
+
+2. Configure API key
+
+Create a file named env.php in the root directory:
+
+<?php
+$apiKey = "YOUR_OPENROUTER_API_KEY";
+3. Run locally
+
+Place the project inside XAMPP htdocs folder and start Apache:
+
+http://localhost/ai-content-generator/
